@@ -13,7 +13,7 @@
 .ramsection "FM player variables" slot 3
 
 MBMStatus          db               ; status: 0 = not playing, 255 = busy playing
-MBMBank            db               ; music data bank
+;* MBMBank            db               ; music data bank
 MBMStart           dw               ; music data address
 MBMPosition        db               ; current position
 MBMStep            db               ; current step
@@ -75,8 +75,8 @@ MBMPlay:
     ld (MBMStatus), a               ; set status to "playing"
     ld (MBMLastCustInstr),a         ; reset last custom instrument
 
-    ld a, (MBMBank)                 ; get bank the music is placed in
-    ld (BankSwitch), a              ; switch bank
+;*     ld a, (MBMBank)                 ; get bank the music is placed in
+;*     ld (BankSwitch), a              ; switch bank
     
     ld hl,(MBMStart)
     ld de,MBMIVLIST_OFFSET
@@ -339,8 +339,8 @@ MBMFrame:
     or a                            ; no?
     jp z, MBMSilenceChannels        ; then silence all channels
 
-    ld a,(MBMBank)                  ; switch to bank with music data
-    ld (BankSwitch),a
+;*     ld a,(MBMBank)                  ; switch to bank with music data
+;*     ld (BankSwitch),a
 
     ld a, (MBMFading)               ; check for fade
     or a
