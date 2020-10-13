@@ -13,7 +13,7 @@ MBMSFXStatus    db                  ; status: 0 = not playing, 1 = busy playing
 MBMSFXStart        dw               ; ROM address of SFX
 MBMSFXPointer      dw               ; current address
 MBMSFXLoopPoint    dw               ; the pointer to the loop begin
-MBMSFXBank         db               ; bank where sfx is located
+;* MBMSFXBank         db               ; bank where sfx is located
 MBMSFXSkipFrames   db               ; wait counter for empty frames
 MBMSFXLoopFlag     db               ; looping? 1= yes, 0 = no
 MBMSFXDelayIVR     db               ; delay until instrument and volume are restored
@@ -111,11 +111,8 @@ MBMSFXSilence:
     nop   ;*
     nop   ;*
     nop   ;*
-    nop   ;*
-    nop   ;*
-    nop   ;*
-    nop   ;*    
-    nop   ;*
+    sub 0 ;*
+    sub 0 ;*   
     ld c, $20
     jp FMOut ;*
 
@@ -156,8 +153,8 @@ MBMSFXFrame:
     ld (MBMSFXSkipFrames), a
     ret nz
 
-    ld a, (MBMSFXBank)              ; switch to bank containing the current sfx
-    ld (BankSwitch), a
+;*    ld a, (MBMSFXBank)              ; switch to bank containing the current sfx
+;*    ld (BankSwitch), a
     
     ld hl, (MBMSFXPointer)
     
